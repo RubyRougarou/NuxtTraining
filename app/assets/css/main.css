@@ -1,7 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-body {
-  background-color: #111827;
-  color: white;
+:root {
+  --text-sans: 'Roboto', sans-serif;
 }
+
+.font-anton {
+  font-family: 'Anton', sans-serif;
+}
+
+
+/*body {*/
+/*  background-color: #111827;*/
+/*  color: white;*/
+/*}*/

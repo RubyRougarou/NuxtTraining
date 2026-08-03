@@ -9,4 +9,7 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
   modules: ["@nuxt/ui", "@pinia/nuxt", "nuxt-auth-utils"],
+  ui: {
+    colorMode: false,
+  },
 });

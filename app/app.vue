@@ -1,11 +1,11 @@
-<script setup>
-const value = ref(50);
-</script>
+<script setup></script>
 
 <template>
   <UApp>
-    <NuxtLoadingIndicator />
-    <Navbar />
-    <NuxtPage />
+    <NuxtLayout>
+      <UMain>
+        <NuxtPage />
+      </UMain>
+    </NuxtLayout>
   </UApp>
 </template>
