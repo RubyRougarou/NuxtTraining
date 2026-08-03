@@ -2,6 +2,8 @@
 import * as yup from "yup";
 import { string } from "yup";
 
+await $fetch("/api/sign-up");
+
 const type = ref("sign-up");
 const loading = ref(false);
 const formData = reactive({
