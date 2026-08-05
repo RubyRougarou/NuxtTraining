@@ -1,8 +1,7 @@
 <script setup lang="js">
 import * as yup from "yup";
 import { string } from "yup";
-
-await $fetch("/api/sign-up");
+import { signUpHelper } from "~/composable/signUpHelper.js";
 
 const type = ref("sign-up");
 const loading = ref(false);
@@ -27,7 +26,15 @@ const schema = yup.object({
 });
 
 const submitForm = async () => {
-  console.log(toRaw(formData));
+  loading.value = true;
+
+  try {
+    await signUpHelper(formData, type.value);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
@@ -41,15 +48,24 @@ const submitForm = async () => {
       <UForm
         :schema="schema"
         :state="formData"
-        @submit.prevent="submitForm()"
+        @submit.prevent="submitForm"
         class="space-y-4"
       >
         <UFormField label="email" name="email">
-          <UInput v-model="formData.email" class="w-full" />
+          <UInput
+            v-model="formData.email"
+            placeholder="Enter your Email"
+            class="w-full"
+          />
         </UFormField>
 
         <UFormField label="password" name="password">
-          <UInput v-model="formData.password" type="password" class="w-full" />
+          <UInput
+            v-model="formData.password"
+            placeholder="Enter your Password"
+            type="password"
+            class="w-full"
+          />
         </UFormField>
 
         <div class="flex items-center justify-start">
@@ -81,7 +97,7 @@ const submitForm = async () => {
           @click="type = type === 'sign-up' ? 'sign-in' : 'sign-up'"
         >
           {{
-            type === "sign-up" ? "I want to sign in" : "I want to sign up"
+            type === "sign-up" ? "I want to log in" : "I want to sign up"
           }}</UButton
         >
       </UForm>
