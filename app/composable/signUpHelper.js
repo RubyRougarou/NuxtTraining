@@ -1,22 +1,27 @@
+import { useAuthStore } from "~/stores/user.js";
+
 export const signUpHelper = async (formData, type) => {
   const { fetch: getSession } = useUserSession();
   const toast = useToast();
+  const authStore = useAuthStore();
   let response;
 
   try {
     if (type === "sign-up") {
-      await $fetch("/api/auth/sign-up", {
+      response = await $fetch("/api/auth/sign-up", {
         method: "POST",
         body: formData,
       });
     } else {
-      await $fetch("/api/auth/sign-in", {
+      response = await $fetch("/api/auth/sign-in", {
         method: "POST",
         body: formData,
       });
     }
 
-    // console.log(response.user);
+    // pinia here
+    await authStore.login(response.user);
+
     toast.add({
       title: "Welcome Back",
       description: "Congratulations! Your account is ready.",
