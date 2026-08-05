@@ -1,10 +1,9 @@
 import bcrypt from "bcryptjs";
-import User from "../../../utils/models/user.js";
-import { connectDB } from "../../../utils/db.js";
+import User from "../../utils/models/user.js";
+import { connectDB } from "../../utils/db.js";
 import { SignUpSchema } from "#server/utils/schemas.js";
 
 export default defineEventHandler(async (event) => {
-  const toast = useToast();
   try {
     await connectDB();
 
@@ -51,22 +50,11 @@ export default defineEventHandler(async (event) => {
     });
   } catch (error) {
     console.error(error);
-    if (error.statusCode === 400 && error.data?.data) {
-      const validationErrors = error.data.data.errorsArray;
-      validationErrors.forEach((err) => {
-        toast.add({
-          title: "Oops",
-          description: err,
-          color: "error",
-        });
-      });
-    } else {
-      toast.add({
-        title: "Oops",
-        description: error.data?.statusMessage || "Sorry, something happened",
-        color: "error",
-      });
-    }
+    throw createError({
+      statusCode: error.statusCode || 500,
+      statusMessage: error.statusMessage || error.message,
+      data: error.data || null,
+    });
 
     return false;
   }

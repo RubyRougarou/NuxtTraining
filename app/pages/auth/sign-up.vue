@@ -7,7 +7,7 @@ const type = ref("sign-up");
 const loading = ref(false);
 const formData = reactive({
   email: "arshia@gmail.com",
-  password: "test1234",
+  password: "Test1234",
 });
 
 const pageTitle = computed(() =>
