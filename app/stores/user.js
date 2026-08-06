@@ -12,7 +12,18 @@ export const useAuthStore = defineStore("user", () => {
     isLoggedIn.value = true;
     user.value = userData;
   }
-  async function logout() {}
+  async function logout() {
+    const {clear} = useUserSession()
+    try {
+      await $fetch("/api/auth/log-out")
+      await clear();
+      isLoggedIn.value = false;
+      user.value = null;
+      navigateTo("/")
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return { isLoggedIn, user, login, logout };
 });
