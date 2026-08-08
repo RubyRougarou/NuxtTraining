@@ -50,11 +50,6 @@ export default defineEventHandler(async (event) => {
     });
 
     return true;
-
-    // return {
-    //   statusCode: 200,
-    //   message: "User successfully created!",
-    // };
   } catch (error) {
     console.error(error);
     throw createError({

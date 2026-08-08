@@ -36,6 +36,10 @@ const submitForm = async () => {
     loading.value = false;
   }
 };
+
+definePageMeta({
+  middleware: ["sign-up-guard"],
+});
 </script>
 
 <template>
