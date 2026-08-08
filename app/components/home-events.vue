@@ -8,6 +8,10 @@ const {
   refresh,
 } = await useFetch("/api/events/event");
 const toast = useToast();
+
+const completeEvent = async (eventID, status) => {
+  await $fetch("/api/events/event", { method: "delete" });
+};
 </script>
 
 <template>
@@ -79,6 +83,26 @@ const toast = useToast();
           >
             Pending
           </span>
+        </div>
+
+        <div class="flex items-center gap-2 mt-4">
+          <UButton
+            v-if="event.status === 'pending'"
+            variant="outline"
+            size="xs"
+            @click="completeEvent(event._id, 'complete')"
+          >
+            Complete and Archive
+          </UButton>
+          <UButton
+            v-if="event.status === 'completed'"
+            variant="outline"
+            size="xs"
+            @click="completeEvent(event._id, 'delete')"
+            color="error"
+          >
+            Delete
+          </UButton>
         </div>
       </div>
     </UCard>
