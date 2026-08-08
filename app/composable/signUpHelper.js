@@ -20,11 +20,16 @@ export const signUpHelper = async (formData, type) => {
     }
 
     // pinia here
-    await authStore.login(response.user);
+    if (type === "sign-in") {
+      await authStore.login(response.user);
+    }
 
     toast.add({
-      title: "Welcome Back",
-      description: "Congratulations! Your account is ready.",
+      title: "Welcome",
+      description:
+        type === "sign-up"
+          ? "Congratulations! Your account is ready."
+          : "Welcome back!",
       color: "success",
     });
 

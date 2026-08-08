@@ -1,9 +1,9 @@
 <script setup lang="js">
-import {useAuthStore} from "~/stores/user.js";
+import { useAuthStore } from "~/stores/user.js";
 
 const authStore = useAuthStore();
 
-const {user, loggedIn} = useUserSession()
+const { user, loggedIn } = useUserSession();
 
 const items = computed(() => {
   const baseItems = [
@@ -14,14 +14,18 @@ const items = computed(() => {
     },
   ];
 
-  if (loggedIn.value){
+  if (loggedIn.value) {
     baseItems.push({
       label: "Create Event",
       to: "/events/create-event",
       active: false,
-    })
+    });
   } else {
-    baseItems.push({ label: "Sign up/Log in", to: "/auth/sign-up", active: false })
+    baseItems.push({
+      label: "Sign up/Log in",
+      to: "/auth/sign-up",
+      active: false,
+    });
   }
 
   return baseItems;
@@ -40,8 +44,13 @@ const items = computed(() => {
     </template>
 
     <template #right>
+      <UColorModeButton />
       <div v-show="loggedIn" class="flex items-center gap-2">
-        <UButton @click.prevent="authStore.logout()" variant="ghost" class="cursor-pointer">
+        <UButton
+          @click.prevent="authStore.logout()"
+          variant="ghost"
+          class="cursor-pointer"
+        >
           Log out
         </UButton>
       </div>

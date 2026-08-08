@@ -48,6 +48,13 @@ export default defineEventHandler(async (event) => {
         email: user.email,
       },
     });
+
+    return true;
+
+    // return {
+    //   statusCode: 200,
+    //   message: "User successfully created!",
+    // };
   } catch (error) {
     console.error(error);
     throw createError({
